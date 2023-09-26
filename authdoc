@@ -1,0 +1,57 @@
+Token Authentication System Documentation
+Introduction
+This documentation provides an overview of the Token Authentication System implemented using Flask and JWT (JSON Web Tokens). This system allows users to obtain an authentication token and use it to access protected endpoints. 
+The system includes two endpoints: one for obtaining a token (authentication) and another for accessing protected data.
+
+Endpoints
+1. Authentication Endpoint
+URL: /login
+Method: POST
+Description: This endpoint allows users to obtain an authentication token by providing their username and password.
+Request Body:
+username (string): User's username.
+password (string): User's password.
+Response:
+token (string): Authentication token to be used for accessing protected endpoints.
+Example Request:
+
+
+POST /login
+{
+  "username": "user1",
+  "password": "password1"
+}
+Example Response:
+
+
+{
+  "token": "your_generated_token_here"
+}
+2. Protected Data Endpoint
+URL: /data
+Method: GET
+Description: This endpoint allows authorized users to access protected data using their authentication token.
+Request Headers:
+Authorization (string): Token in the format "Bearer YOUR_TOKEN".
+Response:
+message (string): A message indicating successful access to protected data.
+Example Request:
+http GET /data
+Authorization: Bearer your_generated_token_here
+Example Response:
+
+
+{
+  "message": "Hello, user1! This is your protected data."
+}
+Error Handling
+If the authentication fails during token generation, the system will return an error message along with an HTTP status code 401 (Unauthorized).
+If the authentication token is missing or invalid during data access, the system will return an error message along with an HTTP status code 401 (Unauthorized).
+Security Considerations
+Secret Key: Keep the SECRET_KEY used for JWT encoding and decoding secure. It should not be exposed or shared.
+Usage
+Start the Flask application by running the script.
+Obtain an authentication token by sending a POST request to /login with a valid username and password.
+Use the obtained token in the Authorization header of GET requests to access protected data from /data.
+Conclusion
+This Token Authentication System provides a basic mechanism for securing your endpoints using tokens. Remember to customize and enhance the system according to your specific project requirements, including data validation, database integration, and advanced security measures.
